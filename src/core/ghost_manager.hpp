@@ -266,7 +266,7 @@ public:
 
     bool getPlaybackOnlyPastPercentEnabled() {
         auto* mod = Mod::get();
-        if (!mod->hasSavedValue("only-show-ghosts-that-passed-percent")) setPlaybackOnlyPastPercentEnabled(false);
+        if (!mod->hasSavedValue("only-show-ghosts-that-passed-percent")) setPlaybackOnlyPastPercentEnabled(false, false);
         else m_onlyShowGhostsThatPassedPercent = mod->getSavedValue<bool>("only-show-ghosts-that-passed-percent");
         return m_onlyShowGhostsThatPassedPercent;
     }
@@ -292,10 +292,10 @@ public:
         Mod::get()->setSavedValue("limit-visible-ghosts", on);
     }
 
-    void setPlaybackOnlyPastPercentEnabled(bool on) {
+    void setPlaybackOnlyPastPercentEnabled(bool on, bool restart = true) {
         m_onlyShowGhostsThatPassedPercent = on;
         Mod::get()->setSavedValue("only-show-ghosts-that-passed-percent", on);
-        restartLevel();
+        if (restart) restartLevel();
     }
 
     void setPlaybackMaxVisibleGhosts(int maxVisible) {
